@@ -1,5 +1,55 @@
 I've updated the README to include the latest code snippets and examples. The README now provides a comprehensive guide for understanding and using the Eloquent relationships and database query logging in your Laravel project. You can use this updated README for your project:
 
+Eloquent relationships in Laravel allow you to define how different database tables are related to each other. They simplify querying and working with related data.
+
+Examples:
+
+1. **One-to-One**: A User has one Profile.
+
+    ```php
+    // User model
+    public function profile() {
+        return $this->hasOne(Profile::class);
+    }
+    ```
+
+2. **One-to-Many**: A User has many Posts.
+
+    ```php
+    // User model
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
+    ```
+
+3. **Many-to-Many**: Users can belong to multiple Roles, and Roles can have multiple Users.
+
+    ```php
+    // User model
+    public function roles() {
+        return $this->belongsToMany(Role::class);
+    }
+    ```
+
+4. **Has-Many-Through**: A Country has many Users through Cities.
+
+    ```php
+    // Country model
+    public function users() {
+        return $this->hasManyThrough(User::class, City::class);
+    }
+    ```
+
+5. **Polymorphic Relations**: Comments can belong to both Posts and Videos.
+    ```php
+    // Comment model
+    public function commentable() {
+        return $this->morphTo();
+    }
+    ```
+
+These relationships simplify database querying and make it easier to work with related data in your Laravel application.
+
 ````markdown
 # Eloquent Relationship Demo
 
