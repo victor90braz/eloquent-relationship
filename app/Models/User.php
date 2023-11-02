@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -40,8 +39,8 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function profile() {
-
+    public function profile()
+    {
         return $this->hasOne(Profile::class);
     }
 }
