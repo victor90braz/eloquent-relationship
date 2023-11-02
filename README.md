@@ -1,3 +1,6 @@
+I've updated the README to include the latest code snippets and examples. The README now provides a comprehensive guide for understanding and using the Eloquent relationships and database query logging in your Laravel project. You can use this updated README for your project:
+
+````markdown
 # Eloquent Relationship Demo
 
 This repository demonstrates various Eloquent relationships in Laravel, including one-to-one, one-to-many, many-to-many, has-many-through, and polymorphic relationships. It provides examples and usage instructions for each relationship type.
@@ -124,7 +127,90 @@ DB::listen(function ($sql) {
     var_dump($sql->sql, $sql->bindings);
 });
 ```
+````
 
 This will log the SQL queries and their bindings for debugging and analysis purposes.
 
 ---
+
+# Second Way to Log
+
+You can also log SQL queries using the `DB::enableQueryLog` and `DB::getQueryLog` methods in your Tinker session. Here's how to do it:
+
+```php
+> DB::enableQueryLog();
+> = null
+
+> $profile = $user->find(2);
+> string(52) "select * from `users` where `users`.`id` = ? limit 1"
+> array(1) {
+> [0]=>
+> int(2)
+> }
+> = App\Models\User {#7114
+> ...
+```
+
+To view the logged queries, you can use the following code:
+
+```php
+> DB::getQueryLog();
+> = [
+>     [
+>         "query" => "select * from `users` where `users`.`id` = ? limit 1",
+>         "bindings" => [
+>             2,
+>         ],
+>         "time" => 1.03,
+>     ],
+>     // Other logged queries
+> ]
+```
+
+This provides an alternative way to log SQL queries for debugging purposes.
+
+# Next Tinker Example
+
+You can also use Tinker to interact with your models and relationships. Here's an example:
+
+```shell
+$ php artisan tinker
+Psy Shell v0.11.22 (PHP 8.2.10 — cli) by Justin Hileman
+
+> $user = new User();
+[!] Aliasing 'User' to 'App\Models\User' for this Tinker session.
+= App\Models.User {#7095}
+
+> $user->first()
+= App.Models.User {#7097
+    id: 1,
+    username: "admin",
+    name: "admin",
+    email: "admin@gmail.com",
+    email_verified_at: null,
+    #password: "$2y$10$2Us440ufiOTCfxbEBjNW5O9u8gG5zDegNtE3/hHwrXSuPnZacrjUe",
+    #remember_token: null,
+    created_at: "2023-11-02 16:52:17",
+    updated_at: "2023-11-02 16:52:17",
+  }
+
+> $user->experience;
+= null
+
+> $user->find(1)->experience
+
+
+= App.Models.Experience {#7108
+    id: 1,
+    user_id: 1,
+    points: 145,
+    created_at: "2023-11-02 17:48:36",
+    updated_at: "2023-11-02 17:48:36",
+  }
+```
+
+This demonstrates how you can use Tinker to access your models and relationships interactively for testing and debugging.
+
+```
+
+```
